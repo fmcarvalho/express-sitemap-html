@@ -28,5 +28,13 @@
   },
   "dependencies": {
     "handlebars": "^4.0.6"
+  },
+  "bugs": {
+    "url": "https://github.com/fmcarvalho/express-sitemap-html/issues"
+  },
+  "homepage": "https://github.com/fmcarvalho/express-sitemap-html#readme",
+  "directories": {
+    "example": "example",
+    "test": "test"
   }
 }
