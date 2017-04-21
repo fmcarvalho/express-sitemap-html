@@ -1,6 +1,6 @@
 {
   "name": "express-sitemap-html",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A middleware to render an HTML sitemap dynamically.",
   "main": "index.js",
   "scripts": {
