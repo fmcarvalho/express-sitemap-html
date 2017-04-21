@@ -18,7 +18,7 @@ const expected = [
 
 module.exports.testSiteMap = function(test) {
     const view = handlebars.compile(
-        fs.readFileSync(__dirname + './../lib/sitemap.hbs').toString())
+        fs.readFileSync(process.cwd() + '/lib/sitemap.hbs').toString())
     const expectedHtml = view(expected)
     const req = null
     sitemap(app)(req, {
