@@ -1,0 +1,12 @@
+{
+  "author": "Miguel Gamboa <miguelgamboa@outlook.com>",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fmcarvalho/express-sitemap-html"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
