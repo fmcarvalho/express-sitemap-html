@@ -9,7 +9,7 @@ This is not an alternative to [sitemap.xml](https://en.wikipedia.org/wiki/Site_m
 but an additional feature that helps users (and developers) to find and test
 routes of an express application.
 
-## Scope
+## Usage
 
 [express-sitemap-html](https://www.npmjs.com/package/express-sitemap-html)
 offers an easy way to get an up-to-date HTML index with the endpoints
@@ -26,12 +26,6 @@ request (TBD).
 This is particularly useful for developers that need to run, navigate
 and check a couple of paths without a corresponding UI.
 
-## Installation
-
-    $ npm install express-sitemap-html
-
-## Usage
-
 ```js
 const express = require('express')
 const sitemap = require('express-sitemap-html')
@@ -42,6 +36,10 @@ const app = express()
 // Add a route to the sitemap
 app.get('/sitemap', sitemap(app))
 ```
+
+## Installation
+
+    $ npm install express-sitemap-html
 
 ## License
 
