@@ -21,9 +21,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "coveralls": "^2.13.0",
+    "@types/jest": "^26.0.19",
+    "coveralls": "^3.1.0",
     "express": "^4.15.2",
     "istanbul": "^0.4.5",
+    "jest": "^26.6.3",
     "nodeunit": "^0.11.0"
   },
   "dependencies": {

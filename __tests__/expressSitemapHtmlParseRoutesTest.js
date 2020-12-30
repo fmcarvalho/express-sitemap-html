@@ -3,7 +3,7 @@
 const express = require('express')
 const fs = require('fs')
 const handlebars = require('handlebars')
-const sitemap = require('./../index')
+const sitemap = require('../index')
 
 const app = setupWebApp()
 const expected = [
@@ -16,29 +16,29 @@ const expected = [
     {methods: 'put', path: '/noo'},
 ]
 
-module.exports.testSiteMap = function(test) {
+test('Test sitemap', () => {
     const view = handlebars.compile(
         fs.readFileSync(process.cwd() + '/lib/sitemap.hbs').toString())
     const expectedHtml = view(expected)
     const req = null
-    sitemap(app)(req, {
+    const sitemapMw = sitemap(app) // sitemap returns an express Middleware handler
+    sitemapMw(req, { // invoke Middleware handler Synchronously
         set: (headers) => {
-            test.equal(headers['Content-Type'], 'text/html')
-            test.equal(headers['Content-Length'], expectedHtml.length)
+            expect(headers['Content-Type']).toBe('text/html')
+            expect(headers['Content-Length']).toBe(expectedHtml.length)
         },
         send: (data) => {
-            test.deepEqual(data, expectedHtml)
-            test.done()
+            expect(data).toEqual(expectedHtml)
         }
     })
-}
+})
 
-module.exports.testParseRoutes = function(test) {
+test('Test parse routes', () => {
     const endpoints = sitemap.parseRoutes(app)
-    test.equal(endpoints.length, expected.length)
-    expected.forEach((ep, index) => test.deepEqual(endpoints[index], ep))
-    test.done()
-}
+    expect(endpoints.length).toBe(expected.length)
+    expect(endpoints).toEqual(expected)
+})
+
 
 function setupWebApp() {
     const app = express()
