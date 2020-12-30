@@ -23,11 +23,11 @@
   "devDependencies": {
     "@types/jest": "^26.0.19",
     "coveralls": "^3.1.0",
-    "express": "^4.15.2",
+    "express": "^4.17.1",
     "jest": "^26.6.3"
   },
   "dependencies": {
-    "handlebars": "^4.0.6"
+    "handlebars": "^4.7.6"
   },
   "bugs": {
     "url": "https://github.com/fmcarvalho/express-sitemap-html/issues"
