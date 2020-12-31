@@ -4,15 +4,14 @@
   "description": "An express middleware that builds an HTML sitemap dynamically",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul cover ./node_modules/nodeunit/bin/nodeunit --report lcovonly -- test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    "test": "jest --coverage && coveralls < coverage/lcov.info"
   },
   "keywords": [
     "express",
-    "router",
+    "swagger",
+    "swagger ui",
     "middleware",
-    "sitemap",
-    "index",
-    "link"
+    "sitemap"
   ],
   "author": "Miguel Gamboa <miguelgamboa@outlook.com>",
   "repository": {
@@ -35,7 +34,7 @@
   "bugs": {
     "url": "https://github.com/fmcarvalho/express-sitemap-html/issues"
   },
-  "homepage": "https://github.com/fmcarvalho/express-sitemap-html#readme",
+  "homepage": "https://github.com/fmcarvalho/express-sitemap-html",
   "directories": {
     "example": "example",
     "test": "test"
