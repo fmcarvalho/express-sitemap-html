@@ -1,0 +1,108 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/bar": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/foo": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            },
+            "post": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "zaz": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/admin": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            },
+            "post": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/duplicate/{id}/group/{nick}": {
+            "put": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true"
+                    },
+                    {
+                        "in": "path",
+                        "name": "nick",
+                        "required": "true"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/duplicate/{id}": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true"
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/duplicate": {
+            "get": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/noo": {
+            "put": {
+                "tags": [
+                    "vinyl"
+                ],
+                "parameters": [],
+                "responses": {}
+            }
+        }
+    }
+}
