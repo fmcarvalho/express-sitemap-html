@@ -3,6 +3,7 @@
 const express = require('express')
 const fs = require('fs')
 const handlebars = require('handlebars')
+const frisby = require('frisby')
 const sitemap = require('../index')
 const expectedSwagger = require('./expectedSwagger.json')
 
@@ -40,10 +41,24 @@ test('Test parse routes', () => {
     expect(endpoints).toEqual(expected)
 })
 
-test('Test swagger', () => {
+test('Test swagger OpenAPI json definition', () => {
     const endpointsJson = sitemap.swaggerJson('vinyl', app)
     expect(endpointsJson).toEqual(expectedSwagger)
 })
+
+test('Test swagger', (done) => {
+    sitemap.swagger('vinyl', app)
+    const server = app.listen(7654, () => {
+        frisby
+            .get('http://localhost:7654/api-docs')
+            .expect('status', 200)
+            .then(() => {
+                server.close()
+                done()
+            })
+    })
+})
+
 
 function setupWebApp() {
     const app = express()
