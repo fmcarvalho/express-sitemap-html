@@ -4,6 +4,7 @@ const express = require('express')
 const fs = require('fs')
 const handlebars = require('handlebars')
 const sitemap = require('../index')
+const expectedSwagger = require('./expectedSwagger.json')
 
 const app = setupWebApp()
 const expected = [
@@ -11,8 +12,9 @@ const expected = [
     {methods: 'get post', path: '/foo'},
     {methods: 'get', path: 'zaz'},
     {methods: 'get post', path: '/admin'},
-    {methods: 'get', path: '/duplicate'},
+    {methods: 'put', path: '/duplicate/:id/group/:nick'},
     {methods: 'get', path: '/duplicate/:id'},
+    {methods: 'get', path: '/duplicate'},
     {methods: 'put', path: '/noo'},
 ]
 
@@ -35,10 +37,13 @@ test('Test sitemap', () => {
 
 test('Test parse routes', () => {
     const endpoints = sitemap.parseRoutes(app)
-    expect(endpoints.length).toBe(expected.length)
     expect(endpoints).toEqual(expected)
 })
 
+test('Test swagger', () => {
+    const endpointsJson = sitemap.swaggerJson('vinyl', app)
+    expect(endpointsJson).toEqual(expectedSwagger)
+})
 
 function setupWebApp() {
     const app = express()
@@ -50,8 +55,9 @@ function setupWebApp() {
     app
         .get('/admin',  () => {})
         .post('/admin', () => {})
-        .get('/duplicate', () => {})
+        .put('/duplicate/:id/group/:nick', () => {})
         .get('/duplicate/:id', () => {})
+        .get('/duplicate', () => {})
         .post('/foo', () => {})
         .put('/noo', () => {})
     return app
