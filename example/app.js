@@ -1,10 +1,16 @@
 'use strict'
 
 const sitemap = require('./../index')
-const app = require('express')()
+const express = require('express')
+
+const app = express()
+const core = new express.Router()
+const other = new express.Router()
+app.use('/core', core)
+app.use(other)
 
 // express routing
-app.get('/', function(req, res) {
+core.get('/', function(req, res) {
     res.send('hello /')
 }).get('/admin', function(req, res) {
     res.send('hello /admin')
@@ -14,16 +20,20 @@ app.get('/', function(req, res) {
     res.send('hello /duplicate')
 }).get('/duplicate/:id', function(req, res) {
     res.send('hello /duplicate')
-}).post('/foo', function(req, res) {
+})
+other.post('/foo', function(req, res) {
     res.send('hello /foo')
 }).put('/nooo', function(req, res) {
     res.send('hello /nooo')
+}).get('/zas', function(req, res) {
+    res.end('hello /zas')
 })
 
 /*
  * sitemap
  */
 app.get('/sitemap', sitemap(app))
+sitemap.swagger('demo', app)
 
 // server starting
 app.listen(3000)
