@@ -33,7 +33,10 @@ other.post('/foo', function(req, res) {
  * sitemap
  */
 app.get('/sitemap', sitemap(app))
-sitemap.swagger('demo', app)
+/**
+ * Auto generated Swagger UI
+ */
+sitemap.swagger('Demo', app)
 
 // server starting
 app.listen(3000)

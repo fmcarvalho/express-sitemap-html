@@ -5,7 +5,7 @@
 [![Version npm](https://img.shields.io/npm/v/express-sitemap-html.svg)](https://www.npmjs.com/package/express-sitemap-html)
 
 An express middleware that builds an HTML sitemap dynamically.
-This is not an alternative to [sitemap.xml](https://en.wikipedia.org/wiki/Site_map),
+This is **NOT** an alternative to [sitemap.xml](https://en.wikipedia.org/wiki/Site_map),
 but an additional feature that helps users (and developers) to find and test
 routes of an express application.
 
@@ -15,16 +15,12 @@ routes of an express application.
 offers an easy way to get an up-to-date HTML index with the endpoints
 of an express application. 
 It renders a snapshot of all paths of your express application, as links
-to the corresponding pages, which you can easily navigate.
-Something that you can get from `/sitemap` path (or any other specified path)
-as a table of contents of your application -- a listing of all available paths
-corresponding to the routes configured on an express application.
-Not as XML, but as a user friendly HTML view.
-And, whenever a route has a different method from `GET` (e.g. `PUT`, `POST`)
-you can easily pass arguments and a body and perform the corresponding HTTP
-request (TBD).
-This is particularly useful for developers that need to run, navigate
-and check a couple of paths without a corresponding UI.
+to the corresponding pages, which you can easily navigate
+(such as a table of contents of your application).
+
+Alternatively you may generate a minimalistic Swagger UI with additional
+capabilities for route parameters inferred from installed express routes.
+
 
 ```js
 const express = require('express')
@@ -35,6 +31,9 @@ const app = express()
 
 // Add a route to the sitemap
 app.get('/sitemap', sitemap(app))
+
+// Alternatively auto generate and install a swagger UI for given express app:
+sitemap.swagger('Your app name', app) // available at /api-docs
 ```
 
 ## Installation
