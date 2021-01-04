@@ -9,13 +9,14 @@ const expectedSwagger = require('./expectedSwagger.json')
 
 const app = setupWebApp()
 const expected = [
-    {methods: 'get', path: '/bar'},
-    {methods: 'get post', path: '/foo'},
-    {methods: 'get', path: 'zaz'},
+    {methods: 'post get', path: '/api/foo'},
+    {methods: 'get', path: '/api/bar'},
+    {methods: 'get', path: '/zaz'},
     {methods: 'get post', path: '/admin'},
     {methods: 'put', path: '/duplicate/:id/group/:nick'},
     {methods: 'get', path: '/duplicate/:id'},
     {methods: 'get', path: '/duplicate'},
+    {methods: 'post', path: '/foo'},
     {methods: 'put', path: '/noo'},
 ]
 
@@ -63,7 +64,8 @@ test('Test swagger', (done) => {
 function setupWebApp() {
     const app = express()
     const router = express.Router()
-    app.use(router)
+    app.use('/api', router)
+    router.post('/foo', () => {})
     router.get('/bar', () => {})
     router.get('/foo', () => {})
     app.use('/zaz', () => {})
