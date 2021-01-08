@@ -5,25 +5,34 @@ const fs = require('fs')
 const handlebars = require('handlebars')
 const frisby = require('frisby')
 const sitemap = require('../index')
+const Endpoint = sitemap.Endpoint
+/**
+ * Expected results.
+ */
 const expectedSwagger = require('./expectedSwagger.json')
-
 const app = setupWebApp()
 const expected = [
-    {methods: 'post get', path: '/api/foo'},
-    {methods: 'get', path: '/api/bar'},
-    {methods: 'get', path: '/zaz'},
-    {methods: 'get post', path: '/admin'},
-    {methods: 'put', path: '/duplicate/:id/group/:nick'},
-    {methods: 'get', path: '/duplicate/:id'},
-    {methods: 'get', path: '/duplicate'},
-    {methods: 'post', path: '/foo'},
-    {methods: 'put', path: '/noo'},
+    new Endpoint('post', '/api/foo', apiFooPostHandler),
+    new Endpoint('get', '/api/bar', apiBarGetHandler),
+    new Endpoint('get', '/api/foo', apiFooGetHandler),
+    new Endpoint('get', '/zaz', undefined),
+    new Endpoint('get', '/admin', adminGetHandler),
+    new Endpoint('post', '/admin', adminPostHandler),
+    new Endpoint('put', '/duplicate/:id/group/:nick', duplicateGroupPutHandler),
+    new Endpoint('get', '/duplicate/:id', duplicateGetByIdHandler),
+    new Endpoint('get', '/duplicate', duplicateGetHandler),
+    new Endpoint('post', '/foo', fooPostHandler),
+    new Endpoint('put', '/noo', nooPutHandler)
 ]
 
 test('Test sitemap', () => {
     const view = handlebars.compile(
         fs.readFileSync(process.cwd() + '/lib/sitemap.hbs').toString())
-    const expectedHtml = view(expected)
+    const routes = expected.groupBy('path')
+    const model = Object
+        .keys(routes)
+        .map(path => new Endpoint(routes[path].map(ep => ep.methods).join(' '), path))
+    const expectedHtml = view(model)
     const req = null
     const sitemapMw = sitemap(app) // sitemap returns an express Middleware handler
     sitemapMw(req, { // invoke Middleware handler Synchronously
@@ -65,17 +74,33 @@ function setupWebApp() {
     const app = express()
     const router = express.Router()
     app.use('/api', router)
-    router.post('/foo', () => {})
-    router.get('/bar', () => {})
-    router.get('/foo', () => {})
-    app.use('/zaz', () => {})
+    router.post('/foo', apiFooPostHandler)
+    router.get('/bar', apiBarGetHandler)
+    router.get('/foo', apiFooGetHandler)
+    app.use('/zaz', zasHandler)
     app
-        .get('/admin',  () => {})
-        .post('/admin', () => {})
-        .put('/duplicate/:id/group/:nick', () => {})
-        .get('/duplicate/:id', () => {})
-        .get('/duplicate', () => {})
-        .post('/foo', () => {})
-        .put('/noo', () => {})
+        .get('/admin',  adminGetHandler)
+        .post('/admin', adminPostHandler)
+        .put('/duplicate/:id/group/:nick', duplicateGroupPutHandler)
+        .get('/duplicate/:id', duplicateGetByIdHandler)
+        .get('/duplicate', duplicateGetHandler)
+        .post('/foo', fooPostHandler)
+        .put('/noo', nooPutHandler)
     return app
 }
+
+function apiFooPostHandler(req, res) {
+    const user = req.body.username
+    const size = req.body.group.length
+    res.send(user + size)
+}
+function apiBarGetHandler(req, res) {}
+function apiFooGetHandler(req, res) {}
+function zasHandler(req, res) {} // !!! This function is not captued in Endpoint
+function adminGetHandler(req, res) {}
+function adminPostHandler(req, res) {}
+function duplicateGroupPutHandler(req, res) {}
+function duplicateGetByIdHandler(req, res) {}
+function duplicateGetHandler(req, res) {}
+function fooPostHandler(req, res) {}
+function nooPutHandler(req, res) {}
