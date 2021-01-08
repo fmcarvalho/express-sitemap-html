@@ -28,11 +28,7 @@ const expected = [
 test('Test sitemap', () => {
     const view = handlebars.compile(
         fs.readFileSync(process.cwd() + '/lib/sitemap.hbs').toString())
-    const routes = expected.groupBy('path')
-    const model = Object
-        .keys(routes)
-        .map(path => new Endpoint(routes[path].map(ep => ep.methods).join(' '), path))
-    const expectedHtml = view(model)
+    const expectedHtml = view(expected)
     const req = null
     const sitemapMw = sitemap(app) // sitemap returns an express Middleware handler
     sitemapMw(req, { // invoke Middleware handler Synchronously
