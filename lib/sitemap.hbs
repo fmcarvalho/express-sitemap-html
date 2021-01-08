@@ -21,9 +21,9 @@
                 <tbody>
                     {{#each .}}
                     <tr>
-                        <td>{{methods}}</td>
+                        <td>{{method}}</td>
                         <td>
-                            {{#if (includes methods 'get')}}
+                            {{#if (includes method 'get')}}
                                 <a href="{{path}}">{{path}}</a>
                             {{else}}
                                 {{path}}
