@@ -5,30 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "nodeunit",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/node_modules/nodeunit/bin/nodeunit",
-            "stopOnEntry": false,
-            "args": ["test"],
-            "cwd": "${workspaceRoot}",
-            "runtimeExecutable": null,
-            "env": {
-                "NODE_ENV": "testing"
-            }
+            "name": "Test",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}\\node_modules\\jest\\bin\\jest.js"
         },
         {
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}\\index.js"
-        },
-        {
-            "type": "node",
-            "request": "attach",
-            "name": "Attach to Port",
-            "address": "localhost",
-            "port": 5858
         }
     ]
 }
