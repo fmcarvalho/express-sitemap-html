@@ -7,7 +7,37 @@
                     "vinyl"
                 ],
                 "parameters": [],
-                "responses": {}
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "group": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "group": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "get": {
                 "tags": [
@@ -22,7 +52,16 @@
                 "tags": [
                     "vinyl"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "master"
+                    },
+                    {
+                        "in": "query",
+                        "name": "boss"
+                    }
+                ],
                 "responses": {}
             }
         },

@@ -90,8 +90,20 @@ function apiFooPostHandler(req, res) {
     const size = req.body.group.length
     res.send(user + size)
 }
-function apiBarGetHandler(req, res) {}
-function apiFooGetHandler(req, res) {}
+function apiBarGetHandler(req, res) {
+    const master = req.query.master
+    res.send(`hello with master = ${master} and  ${req.query.boss}`)
+}
+function apiFooGetHandler(req, res) {
+    /* Next usages of master and boss should not be infered because they live inside comments.
+     *
+     */
+    
+    // const master = req.query.master
+    /*
+        res.send(`hello with master = ${master} and  ${req.query.boss}`)
+    */
+}
 function zasHandler(req, res) {} // !!! This function is not captued in Endpoint
 function adminGetHandler(req, res) {}
 function adminPostHandler(req, res) {}
