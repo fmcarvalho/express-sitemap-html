@@ -12,17 +12,17 @@ const Endpoint = sitemap.Endpoint
 const expectedSwagger = require('./expectedSwagger.json')
 const app = setupWebApp()
 const expected = [
-    new Endpoint('post', '/api/foo', apiFooPostHandler),
-    new Endpoint('get', '/api/bar', apiBarGetHandler),
-    new Endpoint('get', '/api/foo', apiFooGetHandler),
+    new Endpoint('post', '/api/foo', [isAuthenticated, apiFooPostHandler]),
+    new Endpoint('get', '/api/bar', [apiBarGetHandler]),
+    new Endpoint('get', '/api/foo', [apiFooGetHandler]),
     new Endpoint('get', '/zaz', undefined),
-    new Endpoint('get', '/admin', adminGetHandler),
-    new Endpoint('post', '/admin', adminPostHandler),
-    new Endpoint('put', '/duplicate/:id/group/:nick', duplicateGroupPutHandler),
-    new Endpoint('get', '/duplicate/:id', duplicateGetByIdHandler),
-    new Endpoint('get', '/duplicate', duplicateGetHandler),
-    new Endpoint('post', '/foo', fooPostHandler),
-    new Endpoint('put', '/noo', nooPutHandler)
+    new Endpoint('get', '/admin', [adminGetHandler]),
+    new Endpoint('post', '/admin', [adminPostHandler]),
+    new Endpoint('put', '/duplicate/:id/group/:nick', [duplicateGroupPutHandler]),
+    new Endpoint('get', '/duplicate/:id', [duplicateGetByIdHandler]),
+    new Endpoint('get', '/duplicate', [duplicateGetHandler]),
+    new Endpoint('post', '/foo', [fooPostHandler]),
+    new Endpoint('put', '/noo', [nooPutHandler])
 ]
 
 test('Test sitemap', () => {
@@ -70,7 +70,7 @@ function setupWebApp() {
     const app = express()
     const router = express.Router()
     app.use('/api', router)
-    router.post('/foo', apiFooPostHandler)
+    router.post('/foo', isAuthenticated, apiFooPostHandler)
     router.get('/bar', apiBarGetHandler)
     router.get('/foo', apiFooGetHandler)
     app.use('/zaz', zasHandler)
@@ -103,6 +103,10 @@ function apiFooGetHandler(req, res) {
     /*
         res.send(`hello with master = ${master} and  ${req.query.boss}`)
     */
+}
+function isAuthenticated(req, res, next) {
+    if(req.user) next()
+    else res.status(400).send('Bad Request')
 }
 function zasHandler(req, res) {} // !!! This function is not captued in Endpoint
 function adminGetHandler(req, res) {}
