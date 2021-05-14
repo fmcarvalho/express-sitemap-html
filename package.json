@@ -27,9 +27,9 @@
     "jest": "^26.6.3"
   },
   "dependencies": {
-    "handlebars": "^4.7.6",
-    "path-to-regexp": "^6.2.0",
-    "swagger-ui-express": "^4.1.6"
+    "handlebars": "4.7.7",
+    "path-to-regexp": "6.2.0",
+    "swagger-ui-express": "4.1.6"
   },
   "bugs": {
     "url": "https://github.com/fmcarvalho/express-sitemap-html/issues"
