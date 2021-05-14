@@ -24,11 +24,11 @@ const expected = [
     new Endpoint('get', '/duplicate', [duplicateGetHandler], '/api-docs/#/sitemap/get_duplicate'),
     new Endpoint('post', '/foo', [fooPostHandler], '/api-docs/#/sitemap/post_foo'),
     new Endpoint('put', '/noo', [nooPutHandler], '/api-docs/#/sitemap/put_noo'),
-    new Endpoint('get', '/api/cat', [(req, res) => {}], '/api-docs/#/sitemap/get_api_cat'),
-    new Endpoint('post', '/api/cat', [(req, res) => {console.log(`cat "${req.body.cat}" Created`)}], '/api-docs/#/sitemap/post_api_cat'),
-    new Endpoint('get', '/api/cat/{cat}', [(req, res) => {console.log(`Sending cat "${cat}"`)}], '/api-docs/#/sitemap/get_api_cat__cat_'),
-    new Endpoint('put', '/api/cat/{cat}', [(req, res) => {console.log(`cat "${cat}" Updated to: ${req.body.cat}`)}], '/api-docs/#/sitemap/put_api_cat__cat_'),
-    new Endpoint('delete', '/api/cat/{cat}', [(req, res) => {console.log(`cat "${req.params.cat}" Deleted`)}], '/api-docs/#/sitemap/delete_api_cat__cat_')
+    new Endpoint('get', '/api/cat', [apiCatGetAllHandler], '/api-docs/#/sitemap/get_api_cat'),
+    new Endpoint('post', '/api/cat', [apiCatPostHandler], '/api-docs/#/sitemap/post_api_cat'),
+    new Endpoint('get', '/api/cat/{cat}', [apiCatGetHandler], '/api-docs/#/sitemap/get_api_cat__cat_'),
+    new Endpoint('put', '/api/cat/{cat}', [apiCatPutHandler], '/api-docs/#/sitemap/put_api_cat__cat_'),
+    new Endpoint('delete', '/api/cat/{cat}', [apiCatDeleteHandler], '/api-docs/#/sitemap/delete_api_cat__cat_')
 ]
 
 test('Test sitemap', () => {
@@ -123,3 +123,28 @@ function duplicateGetByIdHandler(req, res) {}
 function duplicateGetHandler(req, res) {}
 function fooPostHandler(req, res) {}
 function nooPutHandler(req, res) {}
+
+function apiCatGetAllHandler(req, res) {
+    res.send(`cat`)
+}
+
+function apiCatPostHandler(req, res) {
+    console.log(`cat "${req.body.cat}" Created`)
+    res.send(`cat "${req.body.cat}" Created`)
+}
+
+function apiCatGetHandler(req, res) {
+    console.log(`Sending cat "${req.params.cat}"`)
+    res.send(req.params.cat)
+}
+
+function apiCatPutHandler(req, res) {
+    console.log(`cat "${req.params.cat}" Updated to:
+${req.body.cat}`)
+    res.send(`cat "${req.params.cat}" Updated`)
+}
+
+function apiCatDeleteHandler(req, res) {
+    console.log(`cat "${req.params.cat}" Deleted`)
+    res.send(`cat "${req.params.cat}" Deleted`)
+}
