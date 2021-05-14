@@ -5,6 +5,7 @@ const fs = require('fs')
 const handlebars = require('handlebars')
 const frisby = require('frisby')
 const sitemap = require('../index')
+const CatRouter = require('../example/routes/catRoutes')
 const Endpoint = sitemap.Endpoint
 /**
  * Expected results.
@@ -22,7 +23,12 @@ const expected = [
     new Endpoint('get', '/duplicate/{id}', [duplicateGetByIdHandler], '/api-docs/#/sitemap/get_duplicate__id_', ['id']),
     new Endpoint('get', '/duplicate', [duplicateGetHandler], '/api-docs/#/sitemap/get_duplicate'),
     new Endpoint('post', '/foo', [fooPostHandler], '/api-docs/#/sitemap/post_foo'),
-    new Endpoint('put', '/noo', [nooPutHandler], '/api-docs/#/sitemap/put_noo')
+    new Endpoint('put', '/noo', [nooPutHandler], '/api-docs/#/sitemap/put_noo'),
+    new Endpoint('get', '/api/cat', [(req, res) => {}], '/api-docs/#/sitemap/get_api_cat'),
+    new Endpoint('post', '/api/cat', [(req, res) => {console.log(`cat "${req.body.cat}" Created`)}], '/api-docs/#/sitemap/post_api_cat'),
+    new Endpoint('get', '/api/cat/{cat}', [(req, res) => {console.log(`Sending cat "${cat}"`)}], '/api-docs/#/sitemap/get_api_cat__cat_'),
+    new Endpoint('put', '/api/cat/{cat}', [(req, res) => {console.log(`cat "${cat}" Updated to: ${req.body.cat}`)}], '/api-docs/#/sitemap/put_api_cat__cat_'),
+    new Endpoint('delete', '/api/cat/{cat}', [(req, res) => {console.log(`cat "${req.params.cat}" Deleted`)}], '/api-docs/#/sitemap/delete_api_cat__cat_')
 ]
 
 test('Test sitemap', () => {
@@ -82,6 +88,7 @@ function setupWebApp() {
         .get('/duplicate', duplicateGetHandler)
         .post('/foo', fooPostHandler)
         .put('/noo', nooPutHandler)
+    app.use('/api/cat', CatRouter)
     return app
 }
 
