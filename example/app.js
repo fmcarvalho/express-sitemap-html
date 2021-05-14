@@ -6,10 +6,12 @@ const express = require('express')
 const app = express()
 const core = new express.Router()
 const other = new express.Router()
+const CatRouter = require('./routes/catRoutes')
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use('/core', core)
 app.use(other)
+app.use('/api/cat', CatRouter)
 
 // express routing
 core.get('/', function(req, res) {

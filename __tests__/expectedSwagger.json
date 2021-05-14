@@ -151,6 +151,111 @@
                 "parameters": [],
                 "responses": {}
             }
+        },
+        "/api/cat": {
+          "get": {
+            "parameters": [],
+            "responses": {},
+            "tags": [
+              "vinyl"
+            ]
+          },
+          "post": {
+            "parameters": [],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "cat": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "properties": {
+                      "cat": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "responses": {},
+            "tags": [
+              "vinyl"
+            ]
+          }
+        },
+        "/api/cat/{cat}": {
+          "delete": {
+            "parameters": [
+              {
+                "in": "path",
+                "name": "cat",
+                "required": "true"
+              }
+            ],
+            "responses": {},
+            "tags": [
+              "vinyl"
+            ]
+          },
+          "get": {
+            "parameters": [
+              {
+                "in": "path",
+                "name": "cat",
+                "required": "true"
+              }
+            ],
+            "responses": {},
+            "tags": [
+              "vinyl"
+            ]
+          },
+          "put": {
+            "parameters": [
+              {
+                "in": "path",
+                "name": "cat",
+                "required": "true"
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "properties": {
+                      "cat": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "properties": {
+                      "cat": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "responses": {},
+            "tags": [
+              "vinyl"
+            ]
+          }
         }
     }
 }
