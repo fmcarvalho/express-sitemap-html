@@ -6,10 +6,17 @@ const express = require('express')
 const app = express()
 const core = new express.Router()
 const other = new express.Router()
+const departmentsRouter = new express.Router()
+
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use('/core', core)
 app.use(other)
+
+departmentsRouter.get('/', (req, res) => res.send('hello /api/departments/'))
+departmentsRouter.get('/html', (req, res) => res.send('hello /api/departments/html'))
+departmentsRouter.get('/:departmentNumber', (req, res) => res.send('hello /api/departments/:number ' + req.params.departmentNumber))
+app.use('/api/departments', departmentsRouter)
 
 // express routing
 core.get('/', function(req, res) {
